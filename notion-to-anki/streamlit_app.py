@@ -24,7 +24,8 @@ def show_pages():
     if notionKey is None or databaseID is None:
         st.error("Missing NOTION_API_KEY or DATABASE_ID in your environment.")
     else:
-        pages = nc.get_pages(databaseID)
+        notion_client = nc.NotionClient(notionKey)
+        pages = notion_client.get_pages(databaseID)
         st.success(f"Fetched {len(pages)} pages from Notion!")
 
         for page in pages:
@@ -39,7 +40,7 @@ def show_pages():
                 # st.json(page)
             
                 if st.button(f"Generate flashcards for {title}"):
-                    blocks = nc.get_all_page_content(page["id"])
+                    blocks = notion_client.get_all_page_content(page["id"])
                     # st.success(f"Loaded {len(blocks)} top-level blocks!")
 
                     # st.json(blocks)
