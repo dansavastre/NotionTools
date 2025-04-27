@@ -83,7 +83,9 @@ else:
                             st.error(f"Error creating deck: {result['error']}")
                         existing_notes = ac.get_notes(title)
                     
-                    st.markdown(f"### Existing Notes in '{title}' Deck: " + ", ".join([note for note in existing_notes]))
+                    # for note in existing_notes:
+                    #     note['fields']['Front'] = html.unescape(note['fields']['Front'])
+                    #     note['fields']['Back'] = html.unescape(note['fields']['Back'])
                     if flashcard['question'] in [note['fields']['Front'] for note in existing_notes]:
                         st.warning(f"Flashcard already exists in the deck '{title}'!")
                     else:
